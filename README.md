@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ethereum Transaction Crawler
 
-## Getting Started
+A Next.js application that allows users to view transaction data from the Ethereum blockchain for a specific wallet address, starting from a given block number.
 
-First, run the development server:
+## Features
+
+- **Wallet Address Search**: Enter any Ethereum wallet address to view its transactions
+- **Historical Balance Lookup**: Get ETH balance for any date in YYYY-MM-DD format
+- **Block Range Filtering**: Optionally specify a starting block number to filter transactions
+- **Transaction Types**: View normal, internal, and token transactions
+- **Pagination**: Fast loading with paginated results (20 transactions per page)
+- **Token Support**: View ERC-20 token balances and transactions
+- **Real-time Data**: Fetches live data from the Ethereum blockchain via Etherscan API
+- **Balance Display**: Shows current or historical ETH balance of the searched address
+- **Transaction Details**: Displays transaction hash, from/to addresses, value, block number, and timestamp
+- **External Links**: Click on addresses and transaction hashes to view them on Etherscan
+- **Performance Optimized**: Separate API calls for different data types with lazy loading
+
+## Setup Instructions
+
+### 1. Install Dependencies
+
+```bash
+npm install
+```
+
+### 2. Get Etherscan API Key
+
+1. Go to [Etherscan APIs](https://etherscan.io/apis)
+2. Sign up for a free account
+3. Get your API key from the dashboard
+4. Create a `.env.local` file in the project root with:
+
+   ```
+   # Required: Your Etherscan API key
+   ETHERSCAN_API_KEY=YourApiKeyToken
+
+   # Optional: Custom base URL (defaults to https://api.etherscan.io/api)
+   ETHERSCAN_BASE_URL=https://api.etherscan.io/api
+   ```
+
+### 3. Install shadcn/ui Components
+
+```bash
+npx shadcn-ui@latest add tabs
+```
+
+### 4. Run the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Enter an Ethereum wallet address (e.g., `0xaa7a9ca87d3694b5755f213b5d04094b8d0f0a6f`)
+2. Optionally enter a starting block number (e.g., `9000000`)
+3. Click "Search" to fetch transaction data
+4. View results in two tabs:
+   - **Normal Transactions**: Standard ETH transfers
+   - **Internal Transactions**: Contract interactions and internal transfers
 
-## Learn More
+## API Endpoints
 
-To learn more about Next.js, take a look at the following resources:
+### Consolidated Ethereum API
+- `GET /api/ethereum?address=<address>&action=<balance|normal|internal|token|all>&date=<YYYY-MM-DD>&page=<page>&pageSize=<size>&startBlock=<block>`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Available Actions:**
+- `balance` - Get current or historical ETH balance
+- `normal` - Get paginated normal ETH transactions
+- `internal` - Get paginated internal ETH transactions  
+- `token` - Get paginated token transactions
+- `all` - Get all data (balance + first page of each transaction type)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Parameters:**
+- `address` (required) - Ethereum wallet address
+- `action` (optional) - Type of data to fetch (defaults to "all")
+- `date` (optional) - Historical balance date in YYYY-MM-DD format
+- `page` (optional) - Page number for pagination (defaults to 1)
+- `pageSize` (optional) - Items per page (defaults to 20)
+- `startBlock` (optional) - Starting block number for filtering
 
-## Deploy on Vercel
+## Technologies Used
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Next.js 14**: React framework with App Router
+- **TypeScript**: Type-safe development
+- **Tailwind CSS**: Styling
+- **shadcn/ui**: UI components
+- **Etherscan API**: Ethereum blockchain data
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Example Addresses to Test
+
+- `0xaa7a9ca87d3694b5755f213b5d04094b8d0f0a6f` (Vitalik Buterin's address)
+- `0x28C6c06298d514Db089934071355E5743bf21d60` (Binance Hot Wallet)
+- `0x21a31Ee1afC51d94C2eFcCAa2092aD1028285549` (Another active address)
+
+## Features to Add (Bonus Points)
+
+- [ ] Date-based balance lookup (YYYY-MM-DD format)
+- [ ] Token transaction support (ERC-20, ERC-721)
+- [ ] Transaction filtering and sorting
+- [ ] Export functionality
+- [ ] Dark mode support

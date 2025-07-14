@@ -39,13 +39,7 @@ npm install
    ETHERSCAN_BASE_URL=https://api.etherscan.io/api
    ```
 
-### 3. Install shadcn/ui Components
-
-```bash
-npx shadcn-ui@latest add tabs
-```
-
-### 4. Run the Development Server
+### 3. Run the Development Server
 
 ```bash
 npm run dev
@@ -57,27 +51,22 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 1. Enter an Ethereum wallet address (e.g., `0xaa7a9ca87d3694b5755f213b5d04094b8d0f0a6f`)
 2. Optionally enter a starting block number (e.g., `9000000`)
-3. Click "Search" to fetch transaction data
+3. Click "Search" to fetch transaction dat
 4. View results in two tabs:
    - **Normal Transactions**: Standard ETH transfers
    - **Internal Transactions**: Contract interactions and internal transfers
 
 ## API Endpoints
 
-### Consolidated Ethereum API
-- `GET /api/ethereum?address=<address>&action=<balance|normal|internal|token|all>&date=<YYYY-MM-DD>&page=<page>&pageSize=<size>&startBlock=<block>`
-
 **Available Actions:**
 - `balance` - Get current or historical ETH balance
 - `normal` - Get paginated normal ETH transactions
 - `internal` - Get paginated internal ETH transactions  
 - `token` - Get paginated token transactions
-- `all` - Get all data (balance + first page of each transaction type)
 
 **Parameters:**
 - `address` (required) - Ethereum wallet address
 - `action` (optional) - Type of data to fetch (defaults to "all")
-- `date` (optional) - Historical balance date in YYYY-MM-DD format
 - `page` (optional) - Page number for pagination (defaults to 1)
 - `pageSize` (optional) - Items per page (defaults to 20)
 - `startBlock` (optional) - Starting block number for filtering
@@ -95,11 +84,3 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - `0xaa7a9ca87d3694b5755f213b5d04094b8d0f0a6f` (Vitalik Buterin's address)
 - `0x28C6c06298d514Db089934071355E5743bf21d60` (Binance Hot Wallet)
 - `0x21a31Ee1afC51d94C2eFcCAa2092aD1028285549` (Another active address)
-
-## Features to Add (Bonus Points)
-
-- [ ] Date-based balance lookup (YYYY-MM-DD format)
-- [ ] Token transaction support (ERC-20, ERC-721)
-- [ ] Transaction filtering and sorting
-- [ ] Export functionality
-- [ ] Dark mode support
